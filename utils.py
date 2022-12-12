@@ -4,7 +4,8 @@ import re
 from typing import Iterable, Iterator, Any, List, Pattern, Optional, Callable
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DATA_DIR = os.path.join(BASE_DIR, "data\\")
+# DATA_DIR = os.path.join(BASE_DIR, "data\\")
+DATA_DIR = './data/'
 
 
 def filter_query(param: str, data: Iterable[str]) -> List[str]:
@@ -55,6 +56,7 @@ def check_param(param: dict) -> bool:
     if file_name is None:
         return False
     full_name: str = DATA_DIR + file_name
+    # full_name: str = './data/' + file_name
     if not os.path.exists(full_name):
         return False
 
