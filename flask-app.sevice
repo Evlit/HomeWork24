@@ -4,8 +4,7 @@ After=network.target
 
 [Service]
 WorkingDirectory=/home/elitvinenko/HomeWork24
-Environment=FLASK_APP=app.py
-ExecStart=/home/elitvinenko/HomeWork24/env/bin/python -m flask run -h 0.0.0.0 -p 5000
+ExecStart=/home/elitvinenko/HomeWork24/env/bin/python -m gunicorn app:app -b 0.0.0.0:5000 -w 4
 
 [Install]
 WantedBy=multi-user.target
