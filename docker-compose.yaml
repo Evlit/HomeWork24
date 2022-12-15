@@ -1,0 +1,10 @@
+version: "3.9"
+services:
+  api:
+    build:
+      context: .
+    image: evlit/flask-app
+    ports:
+    - 80:80
+#    volumes:
+#      - ./data:/code/data/
