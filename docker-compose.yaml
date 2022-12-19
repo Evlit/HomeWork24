@@ -3,8 +3,23 @@ services:
   api:
     build:
       context: .
-    image: evlit/flask-app
+#    image: evlit/flask-app
     ports:
-    - 80:80
+      - 80:80
+    environment:
+      - DB_USER=db_user
+      - DB_NAME=db_name
+      - DB_PASSWORD=db_password
+      - DB_HOST=pg
+    depends_on:
+      - pg
+  pg:
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=db_password
+      - POSTGRES_USER=db_user
+      - POSTGRES_DB=db_name
+
+
 #    volumes:
 #      - ./data:/code/data/

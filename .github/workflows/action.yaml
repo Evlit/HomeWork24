@@ -7,11 +7,11 @@ jobs:
       - name: clone code
         uses: actions/checkout@v2
       - name: docker build
-        run: docker build -t evlit/flask-app:$GITHUB_REF_NAME-$GITHUB_RUN_ID .
+        run: docker build -t evlit/flask_db:$GITHUB_REF_NAME-$GITHUB_RUN_ID .
       - name: docker login
         run: echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
       - name: docker push
-        run: docker push evlit/flask-app:$GITHUB_REF_NAME-$GITHUB_RUN_ID
+        run: docker push evlit/flask_db:$GITHUB_REF_NAME-$GITHUB_RUN_ID
   deploy:
     runs-on: ubuntu-latest
     needs: build_and_push
@@ -21,6 +21,9 @@ jobs:
       - name: render configs
         run: |
           mkdir deploy
+          export DB_PASSWORD=${{ secret.DB_PASSWORD }}
+          export DB_USER=${{ secret.DB_USER }}
+          export DB_NAME=${{ secret.DB_NAME }}
           cat docker-compose-ci.yaml | envsubst > deploy/docker-compose.yaml
       - name: clone files to server
         uses: appleboy/scp-action@master
